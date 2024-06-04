@@ -1,6 +1,6 @@
 {% for object in competence_for_employee %}
 
-<p class="competence fw-bold fs-3 pointer" style="background-color: {% if object.competence_level == 1 %}
+<p class="competence fw-bold fs-3 pointer rounded-3" style="background-color: {% if object.competence_level == 1 %}
                                 {{ 'orange' }}
                             {% elif object.competence_level == 2 %}
                                 {{ 'yellow' }}

@@ -1,21 +1,23 @@
 {% load static %}
 
 {% block 'content' %}
-<div class="col detail" data-employeeid="{{ object.id }}">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
+<div class="detail" data-employeeid="{{ object.id }}">
+        <div class="card rounded-3 shadow-sm border-0">
+            <div class="card-header bg-transparent border-0 d-flex justify-content-center">
+              <img class="w-90 img-fluid rounded-3" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
             </div>
           <div class="card-body">
-              <ul class="list-unstyled mt-3 mb-4">
-                  <li>{{ object.full_name }}</li>
-                  <li>{{ object.post }}</li>
-                  <li>{{ object.sector.department }}</li>
-                  <li>{{ object.phone }}</li>
+              <ul class="list-group list-group-flush">
+                  <li class="list-group-item fs-4">{{ object.full_name }}</li>
+                  <li class="list-group-item fs-6">{{ object.post }}</li>
+                  <li class="list-group-item fs-6">{{ object.sector.department }}</li>
+                  <li class="list-group-item fs-6">{{ object.phone }}</li>
               </ul>
           </div>
-            <a href="#" class="nav-link">Компетенции сектора</a>
-            <a href="#" class="nav-link">Навыки сектора</a>
+            <div class="buttons d-flex flex-column mx-3 mb-3">
+                <button href="#" class="btn btn-info mt-3">Компетенции сектора</button>
+                <button href="#" class="btn btn-info mt-1">Навыки сектора</button>
+            </div>
         </div>
       </div>
 

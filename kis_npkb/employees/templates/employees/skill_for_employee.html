@@ -1,6 +1,6 @@
 {% for object in skill_for_employee %}
 
-<p class="fw-bold fs-3 skill pointer"  style="background-color: {% if object.skill_level == 0 %}
+<p class="fw-bold fs-3 skill pointer rounded-3"  style="background-color: {% if object.skill_level == 0 %}
                                 {{ 'red' }}
                             {% elif object.skill_level == 1 %}
                                 {{ 'orange' }}
