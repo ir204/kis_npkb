@@ -1,0 +1,21 @@
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for object in object_list.emp %}
+<div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
+            </div>
+          <div class="card-body">
+              <h1 class="card-title pricing-card-title">{{ object.employee.full_name }}</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                  <li>{{ object.employee.full_name }}</li>
+                  <li>{{ object.employee.post }}</li>
+                  <li>{{ object.employee.sector.department }}</li>
+                  <li>{{ object.employee.phone }}</li>
+              </ul>
+          </div>
+            <a href="{{ object.get_absolute_url }}" class="nav-link">Карточка</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>

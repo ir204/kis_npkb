@@ -52,7 +52,7 @@
                         <tr>
                             <td>{{ object.employee.full_name }}, {{ object.employee.post }}</td>
                             {% for object in object_list %}
-                                <td style="background-color: {% if object.skill_level == 0 %}
+                                <td class="font-weight-bold" style="background-color: {% if object.skill_level == 0 %}
                                 {{ 'red' }}
                             {% elif object.skill_level == 1 %}
                                 {{ 'orange' }}

@@ -1,4 +1,12 @@
-{% for name in competence_for_employee %}
-<p>{{ name }}</p>
+{% for object in competence_for_employee %}
+
+<p class="competence fw-bold fs-3 pointer" style="background-color: {% if object.competence_level == 1 %}
+                                {{ 'orange' }}
+                            {% elif object.competence_level == 2 %}
+                                {{ 'yellow' }}
+                            {% elif object.competence_level == 3 %}
+                                {{ 'lime' }}
+                            {% endif %}" data-competence-id="{{ object.competence.id }}"
+   onclick="showDeputiesByCompetence({{ object.competence.id }})"> {{ object.competence }} </p>
 
 {% endfor %}

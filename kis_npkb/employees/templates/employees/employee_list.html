@@ -4,6 +4,8 @@
 
 
 {% block 'content' %}
+<script src="{% static 'general/js/main.js' %}"></script>
+
 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 380px;">
     <div class="mb-5">
         <form method="get">
@@ -16,20 +18,110 @@
 
     {% for object in form_employee %}
 
-    {% comment %}
-        <a href="/" class="employee-list  d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
-        </a>
-    {% endcomment %}
-
-    <div class="employee-list pointer d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom" data-id="{{ object.id }}">
+    <div class="employee-list pointer d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom" data-employeeid="{{ object.id }}">
           <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
           <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
     </div>
 
     {% endfor %}
   </div>
+
+<div id="employee-info" data-employeeid="{{ object.id }}">
+
+</div>
+
+<div class="">
+
+    <div class="buttons">
+
+        <button name="competence-button" class="competence-button">Компетенции</button>
+        <button name="skill-button" class="skill-button">Навыки</button>
+
+        <div id="skill-or-competence-list">
+
+        </div>
+    </div>
+
+</div>
+
+<div id="employee-list-by-competence-or-skill"></div>
+
+
+<script>
+
+    function clickOnEmployeeInList(){
+
+            let employees = jQuery(".employee-list").click(
+            function(){
+                let employeeId = jQuery(this).attr("data-employeeid");
+                showEmployeeDetail(employeeId);
+                $("#employee-list-by-competence-or-skill").empty();
+                $("#skill-or-competence-list").empty();
+            }
+        );
+    }
+
+    function clickOnCompetenceButton(){
+
+            let employees = jQuery(".competence-button").click(
+            function(){
+                let employeeId = jQuery(".detail").attr("data-employeeid");
+                showCompetence(employeeId);
+            }
+        );
+   }
+
+   function clickOnSkillButton(){
+
+            let employees = jQuery(".skill-button").click(
+            function(){
+                let employeeId = jQuery(".detail").attr("data-employeeid");
+                showSkill(employeeId);
+                $("#employee-list-by-competence-or-skill").empty();
+            }
+        );
+   }
+
+    function addEventListeners(){
+        clickOnEmployeeInList();
+        clickOnCompetenceButton();
+        clickOnSkillButton();
+    }
+
+    addEventListeners();
+</script>
+
+
+{% endblock %}
+
+
+
+
+
+{% comment %}
+<table>
+    <tr>
+        <th>Заголовок</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>Photo</td>
+        <td><img src="{{ selected_employee.photo.url }}" alt="abracadabra"> </td>
+    </tr>
+    {% for competence in competences %}
+    <tr>
+        <td colspan="2">{{ competence }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+        <a href="/" class="employee-list  d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
+        </a>
+
+
+
 {% for object in object_list.selected_employee %}
 <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -50,142 +142,5 @@
         </div>
       </div>
 {% endfor %}
-<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-    {% for object in object_list.emp %}
-<div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
-            </div>
-          <div class="card-body">
-              <h1 class="card-title pricing-card-title">{{ object.employee.full_name }}</h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                  <li>{{ object.employee.full_name }}</li>
-                  <li>{{ object.employee.post }}</li>
-                  <li>{{ object.employee.sector.department }}</li>
-                  <li>{{ object.employee.phone }}</li>
-              </ul>
-          </div>
-            <a href="{{ object.get_absolute_url }}" class="nav-link">Карточка</a>
-        </div>
-      </div>
-    {% endfor %}
-</div>
 
-
-
-<script>
-
-
-    function clickOnEmployeeInList(){
-
-            let employees = jQuery(".employee-list").click(
-            function(){
-                let employeeId = jQuery(this).attr("data-id");
-                showEmployeeDetail(employeeId);
-                showCompetence(employeeId);
-                showSkill(employeeId);
-            }
-        );
-    }
-
-
-    function addEventListeners(){
-        clickOnEmployeeInList();
-    }
-
-    addEventListeners();
-</script>
-
-{% endblock %}
-
-{% block 'detail' %}
-{% comment %}
-<table>
-    <tr>
-        <th>Заголовок</th>
-        <th>Значение</th>
-    </tr>
-    <tr>
-        <td>Photo</td>
-        <td><img src="{{ selected_employee.photo.url }}" alt="abracadabra"> </td>
-    </tr>
-    {% for competence in competences %}
-    <tr>
-        <td colspan="2">{{ competence }}</td>
-    </tr>
-    {% endfor %}
-</table>
 {% endcomment %}
-
-<div id="person-detail"></div>
-
-<script>
-
-    function showEmployeeDetail(employeeId){
-        // Показать детальные записи о сотруднике, получив его идентификатор.
-        $.ajax({
-          url: "http://127.0.0.1:8000/employee/" + employeeId,
-        }).done(function(data) {
-          $("#person-detail").html( data  );
-        });
-    }
-
-
-</script>
-
-{% endblock %}
-
-{% block 'deputy' %}
-
-<div id="deputies"></div>
-
-<script>
-
-    function showDeputies(competenceId){
-       // Показать заместителей, получив идентификатор компетенции.
-        $.ajax({
-          url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId,
-        }).done(function(data) {
-          $("#deputies").html( data  );
-        });
-    }
-
-</script>
-{% endblock %}
-
-{% block 'competence' %}
-
-<div id="competence"></div>
-
-<script>
-    function showCompetence(employeeId) {
-
-        $.ajax({
-          url: "http://127.0.0.1:8000/competence-for-employee/" + employeeId,
-        }).done(function(data) {
-          $("#competence").html( data  );
-        });
-    }
-
-</script>
-
-{% endblock %}
-
-{% block 'skill' %}
-
-<div id="skill"></div>
-
-<script>
-    function showSkill(employeeId) {
-
-        $.ajax({
-          url: "http://127.0.0.1:8000/skill-for-employee/" + employeeId,
-        }).done(function(data) {
-          $("#skill").html( data  );
-        });
-    }
-
-</script>
-
-{% endblock %}

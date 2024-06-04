@@ -1,4 +1,16 @@
-{% for name in skill_for_employee %}
-<p>{{ name }}</p>
+{% for object in skill_for_employee %}
+
+<p class="fw-bold fs-3 skill pointer"  style="background-color: {% if object.skill_level == 0 %}
+                                {{ 'red' }}
+                            {% elif object.skill_level == 1 %}
+                                {{ 'orange' }}
+                            {% elif object.skill_level == 2 %}
+                                {{ 'yellow' }}
+                            {% elif object.skill_level == 3 %}
+                                {{ 'lime' }}
+                            {% elif object.skill_level == 4 %}
+                                {{ 'green' }}
+                            {% endif %}" data-skill-id="{{ object.skill.id }}"
+   onclick="showDeputiesBySkill({{ object.skill.id }})"> {{ object.skill.name }} </p>
 
 {% endfor %}
