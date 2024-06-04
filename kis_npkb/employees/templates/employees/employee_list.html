@@ -13,11 +13,21 @@
             <button>Показать</button>
         </form>
     </div>
-    {% for object in object_list.form_employee %}
-    <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-      <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-      <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
-    </a>
+
+    {% for object in form_employee %}
+
+    {% comment %}
+        <a href="/" class="employee-list  d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
+        </a>
+    {% endcomment %}
+
+    <div class="employee-list pointer d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom" data-id="{{ object.id }}">
+          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
+    </div>
+
     {% endfor %}
   </div>
 {% for object in object_list.selected_employee %}
@@ -62,5 +72,120 @@
     {% endfor %}
 </div>
 
+
+
+<script>
+
+
+    function clickOnEmployeeInList(){
+
+            let employees = jQuery(".employee-list").click(
+            function(){
+                let employeeId = jQuery(this).attr("data-id");
+                showEmployeeDetail(employeeId);
+                showCompetence(employeeId);
+                showSkill(employeeId);
+            }
+        );
+    }
+
+
+    function addEventListeners(){
+        clickOnEmployeeInList();
+    }
+
+    addEventListeners();
+</script>
+
+{% endblock %}
+
+{% block 'detail' %}
+{% comment %}
+<table>
+    <tr>
+        <th>Заголовок</th>
+        <th>Значение</th>
+    </tr>
+    <tr>
+        <td>Photo</td>
+        <td><img src="{{ selected_employee.photo.url }}" alt="abracadabra"> </td>
+    </tr>
+    {% for competence in competences %}
+    <tr>
+        <td colspan="2">{{ competence }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endcomment %}
+
+<div id="person-detail"></div>
+
+<script>
+
+    function showEmployeeDetail(employeeId){
+        // Показать детальные записи о сотруднике, получив его идентификатор.
+        $.ajax({
+          url: "http://127.0.0.1:8000/employee/" + employeeId,
+        }).done(function(data) {
+          $("#person-detail").html( data  );
+        });
+    }
+
+
+</script>
+
+{% endblock %}
+
+{% block 'deputy' %}
+
+<div id="deputies"></div>
+
+<script>
+
+    function showDeputies(competenceId){
+       // Показать заместителей, получив идентификатор компетенции.
+        $.ajax({
+          url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId,
+        }).done(function(data) {
+          $("#deputies").html( data  );
+        });
+    }
+
+</script>
+{% endblock %}
+
+{% block 'competence' %}
+
+<div id="competence"></div>
+
+<script>
+    function showCompetence(employeeId) {
+
+        $.ajax({
+          url: "http://127.0.0.1:8000/competence-for-employee/" + employeeId,
+        }).done(function(data) {
+          $("#competence").html( data  );
+        });
+    }
+
+</script>
+
+{% endblock %}
+
+{% block 'skill' %}
+
+<div id="skill"></div>
+
+<script>
+    function showSkill(employeeId) {
+
+        $.ajax({
+          url: "http://127.0.0.1:8000/skill-for-employee/" + employeeId,
+        }).done(function(data) {
+          $("#skill").html( data  );
+        });
+    }
+
+</script>
 
 {% endblock %}

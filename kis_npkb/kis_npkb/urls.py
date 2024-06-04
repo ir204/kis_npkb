@@ -20,13 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from competences.views import CompetenceListView
-from employees.views import EmployeeListView, EmployeeDetailView    # EmployeeHome
+from employees.views import (EmployeeListView, EmployeeDetailView, EmployeesByCompetenceListView,
+                             CompetenceForEmployeeListView, SkillForEmployeeListView)    # EmployeeHome
 from skills.views import SkillListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("employee/", EmployeeListView.as_view(), name="employee-list"),
     path("employee/<int:pk>", EmployeeDetailView.as_view(), name="employee-detail"),
+    path("employees-by-competence/<int:competence_id>", EmployeesByCompetenceListView.as_view(), name="employees-by-competence"),
+    path("competence-for-employee/<int:employee_id>", CompetenceForEmployeeListView.as_view(), name="competence-for-employee"),
+    path("skill-for-employee/<int:employee_id>", SkillForEmployeeListView.as_view(), name="skill-for-employee"),
 
     path("competence/", CompetenceListView.as_view(), name="competence-list"),
     path("competence/chart", EmployeeDetailView.as_view(), name="competence-chart"),

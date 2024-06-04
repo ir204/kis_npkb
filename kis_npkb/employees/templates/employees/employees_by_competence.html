@@ -1,0 +1,3 @@
+{% for employee in employees_by_competence %}
+<p><a href="{{ employee.get_absolute_url }}">{{ employee }}</a> </p>
+{% endfor %}
