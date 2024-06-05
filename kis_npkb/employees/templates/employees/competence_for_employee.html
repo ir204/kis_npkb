@@ -7,6 +7,6 @@
                             {% elif object.competence_level == 3 %}
                                 {{ 'lime' }}
                             {% endif %}" data-competence-id="{{ object.competence.id }}"
-   onclick="showDeputiesByCompetence({{ object.competence.id }})"> {{ object.competence }} </p>
+   onclick="showDeputiesByCompetence({{ object.competence.id }}, {{ object.employee.id }})"> {{ object.competence }} </p>
 
 {% endfor %}

@@ -314,22 +314,28 @@ class EmployeesByCompetenceListView(ListView):
     def get_context_data(self, **kwargs):
         # context = super().get_context_data(**kwargs)
         competence_id = self.kwargs.get("competence_id")
+        employee_id = self.kwargs.get("employee_id")
 
         context = {"employees_by_competence": Employee.objects.filter(id__in=EmpCompetence.objects.
-                                                                      filter(competence=competence_id))}
+                                                                      filter(competence__id=competence_id).
+                                                                      values_list("employee", flat=True)).
+                                                                      exclude(id=employee_id)}
         return context
 
 
 class EmployeesBySkillListView(ListView):
-    template_name = "employees/employees_by_competence.html"
+    template_name = "employees/employees_by_skill.html"
     model = Employee
 
     def get_context_data(self, **kwargs):
         # context = super().get_context_data(**kwargs)
         skill_id = self.kwargs.get("skill_id")
+        employee_id = self.kwargs.get("employee_id")
 
-        context = {"employees_by_skill": Employee.objects.filter(id__in=EmpCompetence.objects.
-                                                                 filter(competence=skill_id))}
+        context = {"employees_by_skill": Employee.objects.filter(id__in=EmpSkill.objects.
+                                                                 filter(skill__id=skill_id).
+                                                                 values_list("employee", flat=True)).
+                                                                 exclude(id=employee_id)}
         return context
 
 

@@ -5,137 +5,41 @@
 
 {% block 'content' %}
 <script src="{% static 'general/js/main.js' %}"></script>
-<div class="d-flex flex-row flex-wrap align-items-start">
-<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary ms-5" style="max-width: 380px; height: 100%;">
-    <div class="mt-3 mx-3">
-        <form method="get">
-            <table>
+<div class="d-flex flex-row flex-wrap">
+    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary ms-5" style="min-width: 30%; max-height: 100%;" >
+        <div class="mt-3 mx-3">
+            <form method="get">
+                <table>
                 {{ sort_filter_form|crispy }}
-            </table>
-            <button>Показать</button>
-        </form>
+                </table>
+                <button>Показать</button>
+            </form>
+        </div>
+        <div class="d-flex flex-column align-items-center flex-shrink-0 overflow-auto text-align-center">
+            {% for object in form_employee %}
+            <div class="employee-list pointer p-3 link-body-emphasis border-bottom" data-employeeid="{{ object.id }}">
+                <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    {% for object in form_employee %}
-    <div class="employee-list pointer d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom" data-employeeid="{{ object.id }}">
-          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
+
+    <div id="employee-info" class="d-flex flex-column align-items-center flex-shrink-0 px-5" data-employeeid="{{ object.id }}"></div>
+
+    <div class="d-flex flex-column align-items-center align-content-center ms-5" style="min-width: 25%">
+        <div class="buttons d-flex flex-row justify-content-center align-items-start">
+            <button name="competence-button" class="competence-button btn btn-info ms-3 visually-hidden">Компетенции</button>
+            <button name="skill-button" class="skill-button btn btn-info ms-3 visually-hidden">Навыки</button>
+        </div>
+        <div id="skill-or-competence-list" class="d-flex flex-column justify-content-center flex-shrink-0 align-items-stretch align-content-center mt-3" style="min-width: 100%; text-align:center"></div>
     </div>
-    {% endfor %}
 </div>
 
-<div id="employee-info" class="d-flex flex-column align-items-center flex-shrink-0 px-5" data-employeeid="{{ object.id }}"></div>
-
-<div class="d-flex flex-column">
-
-    <div class="buttons">
-
-        <button name="competence-button" class="competence-button btn btn-info">Компетенции</button>
-        <button name="skill-button" class="skill-button btn btn-info">Навыки</button>
-    </div>
-    <div id="skill-or-competence-list" class="d-flex flex-column mt-3"></div>
-
-</div>
-
-</div>
-
-<div id="employee-list-by-competence-or-skill"></div>
+<div id="employee-list-by-competence-or-skill" class="d-flex flex-row justify-content-center"></div>
 
 
 
-<script>
-
-    function clickOnEmployeeInList(){
-
-            let employees = jQuery(".employee-list").click(
-            function(){
-                let employeeId = jQuery(this).attr("data-employeeid");
-                showEmployeeDetail(employeeId);
-                $("#employee-list-by-competence-or-skill").empty();
-                $("#skill-or-competence-list").empty();
-            }
-        );
-    }
-
-    function clickOnCompetenceButton(){
-
-            let employees = jQuery(".competence-button").click(
-            function(){
-                let employeeId = jQuery(".detail").attr("data-employeeid");
-                showCompetence(employeeId);
-            }
-        );
-   }
-
-   function clickOnSkillButton(){
-
-            let employees = jQuery(".skill-button").click(
-            function(){
-                let employeeId = jQuery(".detail").attr("data-employeeid");
-                showSkill(employeeId);
-                $("#employee-list-by-competence-or-skill").empty();
-            }
-        );
-   }
-
-    function addEventListeners(){
-        clickOnEmployeeInList();
-        clickOnCompetenceButton();
-        clickOnSkillButton();
-    }
-
-    addEventListeners();
-</script>
+<script src="{% static 'general/js/addEventListeners.js' %}"></script>
 
 
 {% endblock %}
-
-
-
-
-
-{% comment %}
-<table>
-    <tr>
-        <th>Заголовок</th>
-        <th>Значение</th>
-    </tr>
-    <tr>
-        <td>Photo</td>
-        <td><img src="{{ selected_employee.photo.url }}" alt="abracadabra"> </td>
-    </tr>
-    {% for competence in competences %}
-    <tr>
-        <td colspan="2">{{ competence }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-        <a href="/" class="employee-list  d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
-          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-5 fw-semibold">{{ object.full_name }}</span>
-        </a>
-
-
-
-{% for object in object_list.selected_employee %}
-<div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
-            </div>
-          <div class="card-body">
-              <h1 class="card-title pricing-card-title">{{ object.full_name }}</h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                  <li>{{ object.full_name }}</li>
-                  <li>{{ object.post }}</li>
-                  <li>{{ object.sector.department }}</li>
-                  <li>{{ object.phone }}</li>
-              </ul>
-          </div>
-            <a href="#" class="nav-link">Компетенции сектора</a>
-            <a href="#" class="nav-link">Навыки сектора</a>
-        </div>
-      </div>
-{% endfor %}
-
-{% endcomment %}

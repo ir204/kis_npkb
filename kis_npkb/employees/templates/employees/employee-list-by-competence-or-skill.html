@@ -1,9 +1,9 @@
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
     {% for object in object_list.emp %}
-<div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
+<div class="col" data-employeeid="{{ object.id }}">
+        <div class="card rounded-3 shadow-sm border-0">
+            <div class="card-header bg-transparent border-0 d-flex justify-content-center">
+              <img class="w-75 img-fluid rounded-3" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
             </div>
           <div class="card-body">
               <h1 class="card-title pricing-card-title">{{ object.employee.full_name }}</h1>

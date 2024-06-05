@@ -1,16 +1,16 @@
-function showDeputiesByCompetence(competenceId){
+function showDeputiesByCompetence(competenceId, employeeId){
        // Показать заместителей, получив идентификатор компетенции.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId,
+            url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
         });
     }
 
-function showDeputiesBySkill(skillId){
+function showDeputiesBySkill(skillId, employeeId){
        // Показать заместителей, получив идентификатор компетенции.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-skill/" + skillId,
+            url: "http://127.0.0.1:8000/employees-by-skill/" + skillId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
         });
