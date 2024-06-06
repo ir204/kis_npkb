@@ -1,8 +1,7 @@
-
 {% for employee in employees_by_competence %}
 
 
-<div class="card rounded-3 shadow-sm border-0">
+<div class="card rounded-3 shadow-sm border-0 ms-5 me-1">
 
     <div class="card-header bg-transparent border-0 d-flex justify-content-center">
         <img class="w-50 img-fluid rounded-3" src="{{ employee.photo.url }}" alt="{{ employee.full_name }}">
@@ -21,6 +20,5 @@
         <button name="card" class="btn btn-info mt-3" onclick="showEmployeeDetail({{ employee.id }})">Карточка</button>
     </div>
 </div>
-
 
 {% endfor %}
