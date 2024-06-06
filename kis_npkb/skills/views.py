@@ -24,7 +24,7 @@ class SkillListView(ListView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data["sort_filter_form"] = SkillSortFilterForm(self.request.GET)
-        return context_data
+        return context_data 
 
 
 # отдельное вью под график
