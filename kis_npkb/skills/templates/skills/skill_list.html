@@ -14,12 +14,12 @@
         </form>
     </div>
 </div>
-<div class="d-flex flex-column align-items-center flex-shrink-0 bg-body-tertiary" style="min-width: 380px;">
+<div class="d-flex flex-column align-items-center flex-shrink-0 bg-body-tertiary w-100">
     {% if object_list %}
-        {% for object in object_list %}
-        <h3>{{ object.sector.name }} СЕКТОР</h3>
+        {% for a_group in grouped_empskill_list %}
+        <h3>{{ a_group.0.sector.name }} СЕКТОР</h3>
         <h4>МАТРИЦА НАВЫКОВ</h4>
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap ">
 
             <figure class="figure" style="background-color: green; height: 20px; width: 20px;"></figure>
             <p class="ms-2 me-4">Прошел полную подготовку</p>
@@ -37,39 +37,41 @@
             <p class="ms-2 me-4">Не имеет навыка</p>
 
         </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {% for object in object_list %}
-                                <th scope="col">{{ object.skill.name }}</th>
+        <div class="table-responsive w-75">
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th></th>
+
+                            {% for empskill in a_group.0.empskill_set.all %}
+                                <th scope="col">{{ empskill.skill.name }}</th>
                             {% endfor %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for object in object_list %}
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for empskill in a_group.0.empskill_set.all %}
                         <tr>
-                            <td>{{ object.employee.full_name }}, {{ object.employee.post }}</td>
-                            {% for object in object_list %}
-                                <td class="font-weight-bold" style="background-color: {% if object.skill_level == 0 %}
+                            <td>{{ empskill.employee.full_name }}, {{ empskill.employee.post }}</td>
+                            {% for empskills in a_group.0.empskill_set.all %}
+                                <td class="font-weight-bold" style="background-color: {% if not empskills.skill_level %}
                                 {{ 'red' }}
-                            {% elif object.skill_level == 1 %}
+                            {% elif empskills.skill_level == 1 %}
                                 {{ 'orange' }}
-                            {% elif object.skill_level == 2 %}
+                            {% elif empskills.skill_level == 2 %}
                                 {{ 'yellow' }}
-                            {% elif object.skill_level == 3 %}
+                            {% elif empskills.skill_level == 3 %}
                                 {{ 'lime' }}
-                            {% elif object.skill_level == 4 %}
+                            {% elif empskills.skill_level == 4 %}
                                 {{ 'green' }}
-                            {% endif %}" >{{ object.skill_level }}</td>
+                            {% endif %}">{% if not empskills.skill_level %} 0 {% else %} {{ empskills.skill_level }} {% endif %}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
-                    </tbody>
-                </table>
-                <hr class="hr hr-blurry mt-4 mb-5"></hr>
-            </div>
+                </tbody>
+            </table>
+            <hr class="hr hr-blurry w-100 mt-5 mb-5"/>
+        </div>
         {% endfor %}
     {% endif %}
 </div>

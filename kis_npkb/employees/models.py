@@ -22,7 +22,7 @@ class Employee(models.Model):
     sector = models.ForeignKey("departments.Sector", on_delete=models.CASCADE, verbose_name="Сектор")
 
     def __str__(self):
-        return self.name
+        return "{} {} {}".format(self.full_name, self.sector.name, self.post)
 
     @property
     def full_name(self):
