@@ -19,10 +19,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from competences.views import CompetenceListView
+from competences.views import CompetenceTableListView, EmployeesByCompetenceTableListView
 from employees.views import (EmployeeListView, EmployeeDetailView, EmployeesByCompetenceListView,
                              CompetenceForEmployeeListView, SkillForEmployeeListView, EmployeesBySkillListView)    # EmployeeHome
-from skills.views import SkillListView
+from skills.views import SkillListView, SkillTableListView, EmployeesBySkillTableListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,10 +35,12 @@ urlpatterns = [
     path("competence-for-employee/<int:employee_id>", CompetenceForEmployeeListView.as_view(), name="competence-for-employee"),
     path("skill-for-employee/<int:employee_id>", SkillForEmployeeListView.as_view(), name="skill-for-employee"),
 
-    path("competence/", CompetenceListView.as_view(), name="competence-list"),
-    path("competence/chart", EmployeeDetailView.as_view(), name="competence-chart"),
+    path("competence-table/", CompetenceTableListView.as_view(), name="competence-table-list"),
+    path("employees-by-competence-table/<int:competence_id>/<int:sector_id>", EmployeesByCompetenceTableListView.as_view(),
+         name="employee-by-competence-table"),
 
     path("skill/", SkillListView.as_view(), name="skill-list"),
-    path("skill/chart", EmployeeDetailView.as_view(), name="skill-chart"),
+    path("skill-table/", SkillTableListView.as_view(), name="skill-table-list"),
+    path("employees-by-skill-table/<int:skill_id>/<int:sector_id>", EmployeesBySkillTableListView.as_view(), name="employee-by-skill-table")
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

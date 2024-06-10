@@ -12,31 +12,32 @@ function clickOnEmployeeInList(){
         );
     }
 
-    function clickOnCompetenceButton(){
+function clickOnCompetenceButton(){
 
-            let employees = jQuery(".competence-button").click(
-            function(){
-                let employeeId = jQuery(".detail").attr("data-employeeid");
-                showCompetence(employeeId);
-            }
-        );
-   }
+        let employees = jQuery(".competence-button").click(
+        function(){
+            let employeeId = jQuery(".detail").attr("data-employeeid");
+            showCompetence(employeeId);
+        }
+    );
+}
 
-   function clickOnSkillButton(){
+function clickOnSkillButton(){
 
-            let employees = jQuery(".skill-button").click(
-            function(){
-                let employeeId = jQuery(".detail").attr("data-employeeid");
-                showSkill(employeeId);
-                $("#employee-list-by-competence-or-skill").empty();
-            }
-        );
-   }
+        let employees = jQuery(".skill-button").click(
+        function(){
+            let employeeId = jQuery(".detail").attr("data-employeeid");
+            showSkill(employeeId);
+            $("#employee-list-by-competence-or-skill").empty();
+        }
+    );
+}
 
-    function addEventListeners(){
-        clickOnEmployeeInList();
-        clickOnCompetenceButton();
-        clickOnSkillButton();
-    }
 
-    addEventListeners();
+function addEventListeners(){
+    clickOnEmployeeInList();
+    clickOnCompetenceButton();
+    clickOnSkillButton();
+}
+
+addEventListeners();

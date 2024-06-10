@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
-from departments.models import Department
+from departments.models import Department, Sector
 from employees.models import Employee
-from .forms import SkillSortFilterForm
-from .models import EmpSkill
+from .forms import SkillSortFilterForm, SkillTableSortFilterForm
+from .models import EmpSkill, Skill
+
 
 # Create your views here.
 #
@@ -55,5 +56,37 @@ class SkillListView(ListView):
         context_data["grouped_empskill_list"] = group_sectors(context_data.get('empskill_list'))
         return context_data
 
+
+class SkillTableListView(ListView):
+    model = EmpSkill
+    template_name = "skills/skills_table_list.html"
+
+    def get_queryset(self):
+        queryset = EmpSkill.objects.all()
+        sector = self.request.GET.get("sector")
+        if sector:
+            queryset = queryset.filter(sector__id=sector).order_by("sector").distinct()
+        else:
+            queryset = queryset.filter(sector__id=Sector.objects.values_list("id", flat=True).first()).distinct()
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["sort_filter_form"] = SkillTableSortFilterForm(self.request.GET)
+        return context_data
+
+
+class EmployeesBySkillTableListView(ListView):
+    template_name = "skills/employees_by_skill_table.html"
+    model = Employee
+
+    def get_context_data(self, **kwargs):
+        skill_id = self.kwargs.get("skill_id")
+        sector_id = self.kwargs.get("sector_id")
+
+        context = {"employees_by_skill": Employee.objects.filter(id__in=EmpSkill.objects.
+                                                                 filter(skill__id=skill_id, sector__id=sector_id).
+                                                                 values_list("employee", flat=True))}
+        return context
 
 # отдельное вью под график
