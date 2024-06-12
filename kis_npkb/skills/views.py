@@ -27,11 +27,11 @@ def group_sectors(a_queryset):
     grouped_list = []
     sector_id_list = a_queryset.distinct().order_by("sector_id").values_list("sector", flat=True)
     for sector_id in sector_id_list:
-        tmp_list = []
+        tmp_set = set()
         for emp_skill in a_queryset:
             if emp_skill.sector.id == sector_id:
-                tmp_list.append(emp_skill.employee)
-        grouped_list.append(tmp_list)
+                tmp_set.add(emp_skill.employee)
+        grouped_list.append(list(tmp_set))
     return grouped_list
 
 
