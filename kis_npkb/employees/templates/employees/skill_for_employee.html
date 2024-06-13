@@ -9,7 +9,7 @@
                             {% elif object.skill_level == 3 %}
                                 {{ 'lime' }}
                             {% elif object.skill_level == 4 %}
-                                {{ 'green' }}
+                                {{ '#17a917' }}
                             {% endif %}" data-skill-id="{{ object.skill.id }}"
    onclick="showDeputiesBySkill({{ object.skill.id }}, {{ object.employee.id }})"> {{ object.skill.name }} </p>
 

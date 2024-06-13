@@ -95,7 +95,8 @@ class EmployeesByCompetenceListView(ListView):
         context = {"employees_by_competence": Employee.objects.filter(id__in=EmpCompetence.objects.
                                                                       filter(competence__id=competence_id).
                                                                       values_list("employee", flat=True)).
-                                                                      exclude(id=employee_id)}
+                                                                      exclude(id=employee_id),
+                   "competence": EmpCompetence.objects.filter(competence_id=competence_id).first()}
         return context
 
 
@@ -112,7 +113,7 @@ class EmployeesBySkillListView(ListView):
                                                                  filter(skill__id=skill_id).
                                                                  values_list("employee", flat=True)).
                                                                  exclude(id=employee_id),
-                   "skill": EmpSkill.objects.filter(skill__id=skill_id).first() }
+                   "skill": EmpSkill.objects.filter(skill__id=skill_id).first()}
         return context
 
 
