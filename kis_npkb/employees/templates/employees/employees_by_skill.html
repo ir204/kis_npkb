@@ -1,25 +1,25 @@
 <div class="d-flex flex-column justify-content-center mb-3">
-<h2 class="text-center d-flex flex-row justify-content-center">Навыком {{ skill.skill.name }} Обладают:</h2>
+<h2 class="text-center d-flex flex-row justify-content-center mx-3">Навыком {{ skill.skill.name }} Обладают:</h2>
 
 <div class="d-flex flex-row flex-wrap justify-content-center mt-3">
 {% for employee in employees_by_skill %}
-<div class="card rounded-3 shadow-sm border-0 ms-5 me-1">
+<div class="card rounded-3 shadow-sm ms-5 me-1 mt-3 borderall itemcolor" style="width: 350px">
 
-    <div class="card-header bg-transparent border-0 d-flex justify-content-center">
+    <div class="card-header bg-transparent border-0 text-center">
         <img class="img-fluid rounded-3" src="{{ employee.photo.url }}" alt="{{ employee.full_name }}">
     </div>
 
-    <div class="card-body">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item fs-4">{{ employee.full_name }}</li>
-            <li class="list-group-item fs-6">{{ employee.post }}</li>
-            <li class="list-group-item fs-6">{{ employee.sector.department }}</li>
-            <li class="list-group-item fs-6">{{ employee.phone }}</li>
+    <div class="card-body text-center">
+        <ul class="list-group border-0">
+            <li class="list-group-item fs-6 fw-semibold itemcolor borderbottom">{{ employee.full_name }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.post }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.sector.department }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">Доб. номер: {{ employee.phone }}</li>
         </ul>
     </div>
 
     <div class="buttons d-flex flex-column mx-3 mb-3">
-        <button name="card" class="btn btn-info mt-3" onclick="showEmployeeDetail({{ employee.id }})">Карточка</button>
+        <button name="card" class="btn btn-info mt-3" onclick="showEmployeeDetail({{ employee.id }}), $('#employee-info')[0].focus()">Карточка</button>
     </div>
 </div>
     {% endfor %}

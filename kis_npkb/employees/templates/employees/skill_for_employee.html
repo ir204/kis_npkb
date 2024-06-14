@@ -1,3 +1,4 @@
+<div class="borderall itemcolor p-3 rounded-3">
 {% for object in skill_for_employee %}
 
 <p class="fw-bold fs-4 skill pointer rounded-3"  style="background-color: {% if object.skill_level == 0 %}
@@ -14,3 +15,4 @@
    onclick="showDeputiesBySkill({{ object.skill.id }}, {{ object.employee.id }})"> {{ object.skill.name }} </p>
 
 {% endfor %}
+</div>

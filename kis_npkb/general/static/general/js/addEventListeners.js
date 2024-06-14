@@ -6,8 +6,6 @@ function clickOnEmployeeInList(){
                 showEmployeeDetail(employeeId);
                 $("#employee-list-by-competence-or-skill").empty();
                 $("#skill-or-competence-list").empty();
-                $(".competence-button").removeClass("visually-hidden");
-                $(".skill-button").removeClass("visually-hidden");
             }
         );
     }

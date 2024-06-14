@@ -4,6 +4,7 @@ function showDeputiesByCompetence(competenceId, employeeId){
             url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
+            $("#employee-list-by-competence-or-skill")[0].focus();
         });
     }
 
@@ -13,6 +14,7 @@ function showDeputiesBySkill(skillId, employeeId){
             url: "http://127.0.0.1:8000/employees-by-skill/" + skillId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
+            $("#employee-list-by-competence-or-skill")[0].focus();
         });
     }
 
@@ -40,6 +42,8 @@ function showEmployeeDetail(employeeId){
             url: "http://127.0.0.1:8000/employee/" + employeeId,
         }).done(function(data) {
             $("#employee-info").html( data  );
+            $(".competence-button").removeClass("visually-hidden");
+            $(".skill-button").removeClass("visually-hidden");
         });
     }
 
@@ -61,4 +65,22 @@ function showEmployeesByCompetence(competenceId, sectorId){
         }).done(function(data) {
             $("#employee-list-by-competence").html( data  );
         });
+    }
+
+
+function showEmployee(targetUrl, employeeId) {
+    // Переход на другую страницу с внесением данных в куки.
+        document.cookie = "employee=" + employeeId + "; Path=/; Domain=127.0.0.1";
+        location.replace(targetUrl);
+    }
+
+function showEmployeeByRedirect(){
+    // Получение данных из куки после перехода на страницу.
+        if ( document.cookie.split('; ').find(row => row.startsWith("employee=")) ) {
+            let employeeId = document.cookie.split('; ').find(row => row.startsWith("employee="));
+            employeeId = employeeId.split("employee=");
+            employeeId = parseInt(employeeId[1]);
+            showEmployeeDetail(employeeId);
+            document.cookie = "employee=; Path=/; Domain=127.0.0.1; Max-Age= -1";
+        }
     }

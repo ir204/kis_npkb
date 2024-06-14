@@ -12,7 +12,7 @@ class EmployeeSortFilterForm(forms.Form):
     search_by = forms.ChoiceField(choices=get_choices(), label="Поиск по", required=False)
     usertext = forms.CharField(required=False, widget=forms.TextInput, label="Поиск")
     fired = forms.BooleanField(required=False, label="Уволенные")
-    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False)
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False, empty_label="Все отделы", label="Отдел")
 
 
 

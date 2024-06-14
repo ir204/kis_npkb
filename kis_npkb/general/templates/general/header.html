@@ -93,19 +93,16 @@
       }
     </style>
   </head>
-  <body>
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-4">Компетенции сотрудников производственных отделов</span>
-      </a>
+  <body class="maincolor">
+    <header class="d-flex flex-wrap justify-content-between py-3 mb-5 border-bottom headercolor">
+        <img class="img-fluid rounded-3 mx-5" src="../../../media/npkb_logo.webp" alt="АО Невское ПКБ">
+        <span class="fs-4 align-middle mt-3 fw-semibold text-white mx-5">Компетенции сотрудников производственных отделов</span>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Сотрудники</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Компетенции(графика)</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Компетенции(таблица)</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Навыки(графика)</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Навыки(таблица)</a></li>
+      <ul class="nav nav-pills mt-3 fw-semibold mx-5">
+        <li class="nav-item me-1 my-1"><a href="{% url 'employee-list' %}" class="nav-link active">Сотрудники</a></li>
+        <li class="nav-item me-1 my-1"><a href="{% url 'competence-table-list' %}" class="nav-link active">Список компетенций</a></li>
+        <li class="nav-item me-1 my-1"><a href="{% url 'skill-table-list' %}" class="nav-link active">Список навыков</a></li>
+        <li class="nav-item my-1"><a href="{% url 'skill-list' %}" class="nav-link active">Матрица навыков</a></li>
       </ul>
     </header>
     <main>

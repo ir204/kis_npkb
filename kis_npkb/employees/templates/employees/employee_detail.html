@@ -2,21 +2,21 @@
 
 {% block 'content' %}
 <div class="detail" data-employeeid="{{ object.id }}">
-    <div class="card rounded-3 shadow-sm border-0">
-        <div class="card-header bg-transparent border-0 d-flex justify-content-center">
+    <div class="card rounded-3 shadow-sm borderall itemcolor">
+        <div class="card-header border-0 d-flex justify-content-center">
             <img class="img-fluid rounded-3" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
         </div>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item fs-4">{{ object.full_name }}</li>
-                <li class="list-group-item fs-6">{{ object.post }}</li>
-                <li class="list-group-item fs-6">{{ object.sector.department }}</li>
-                <li class="list-group-item fs-6">{{ object.phone }}</li>
+        <div class="card-body text-center">
+            <ul class="list-group border-0">
+                <li class="list-group-item fs-4 itemcolor borderbottom fw-semibold">{{ object.full_name }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">{{ object.post }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">{{ object.sector.department }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">Доб. номер: {{ object.phone }}</li>
             </ul>
         </div>
         <div class="button-group d-flex flex-column mx-3 mb-3">
-            <button href="#" class="btn btn-info mt-3">Компетенции сектора</button>
-            <button href="#" class="btn btn-info mt-1">Навыки сектора</button>
+            <a href="{% url 'competence-table-list' %}?sector={{ object.sector.id }}" class="btn btn-primary mt-3">Компетенции сектора</a>
+            <a href="{% url 'skill-table-list' %}?sector={{ object.sector.id }}" class="btn btn-primary mt-1">Навыки сектора</a>
         </div>
     </div>
 </div>
