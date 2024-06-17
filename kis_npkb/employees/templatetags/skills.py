@@ -1,9 +1,5 @@
-import datetime
 from django import template
 from django.utils.safestring import mark_safe
-
-from employees.models import Employee
-from skills.models import EmpSkill, Skill
 
 register = template.Library()
 
@@ -19,11 +15,10 @@ def get_skills(employee):
 
     """
     Цикл по скилам сектора
-        Уровень скила = 0
-        Цикл по скилам сотрудника
-            Если скил сотрудника = скилу сектора:
-                Уровень скила = Уровень скила сотрудника
-                Перварть цикл
+        Уровень скилла = 0
+        Цикл по скиллам сотрудника
+            Если скилл сотрудника = скиллу сектора:
+                Уровень скилла = Уровень скилла сотрудника
     """
 
     for sector_skill in sector_skills:

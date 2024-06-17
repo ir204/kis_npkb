@@ -1,10 +1,9 @@
-from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import ListView
 
 from departments.models import Sector
 from employees.models import Employee
-from .forms import CompetenceSortFilterForm, CompetenceTableSortFilterForm
-from .models import EmpCompetence, Competence
+from .forms import CompetenceTableSortFilterForm
+from .models import EmpCompetence
 
 
 # Create your views here.
@@ -43,4 +42,3 @@ class EmployeesByCompetenceTableListView(ListView):
                                                                       values_list("employee", flat=True))}
         return context
 
-    # отдельное вью под график

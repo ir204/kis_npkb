@@ -2,15 +2,13 @@
 from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic import DetailView, ListView
 
-from competences.models import EmpCompetence, Competence
-from competences.service import competence_search
-from skills.models import EmpSkill, Skill
-from skills.service import skill_search
-from .models import Employee
-from departments.models import Department
+from competences.models import EmpCompetence
+from skills.models import EmpSkill
 from .forms import EmployeeSortFilterForm
+from .models import Employee
+
 
 # Create your views here.
 
@@ -37,7 +35,7 @@ class EmployeeListView(View):
 
         usertext = self.request.GET.get("usertext")
 
-        queryset_form = Employee.objects.all()  # objects for for
+        queryset_form = Employee.objects.all()
 
         department = self.request.GET.get("department")
         search_by = self.request.GET.get("search_by")
@@ -70,17 +68,6 @@ class EmployeeListView(View):
     def get(self, request):
         context = self.get_context(request)
         return render(request, "employees/employee_list.html", context)
-
-
-
-
-
-
-class EmployeeHome(View):
-
-    def get(self, request):
-        return render(request, "employees/employee_home.html", {})
-
 
 
 class EmployeesByCompetenceListView(ListView):

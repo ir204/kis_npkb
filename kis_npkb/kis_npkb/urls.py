@@ -14,33 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path, reverse_lazy
+from django.views.generic import RedirectView
 
-from competences.views import CompetenceTableListView, EmployeesByCompetenceTableListView
-from employees.views import (EmployeeListView, EmployeeDetailView, EmployeesByCompetenceListView,
-                             CompetenceForEmployeeListView, SkillForEmployeeListView, EmployeesBySkillListView)    # EmployeeHome
-from skills.views import SkillListView, SkillTableListView, EmployeesBySkillTableListView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("employee/", EmployeeListView.as_view(), name="employee-list"),
-    path("employee/<int:pk>", EmployeeDetailView.as_view(), name="employee-detail"),
-
-    path("employees-by-competence/<int:competence_id>/<int:employee_id>", EmployeesByCompetenceListView.as_view(), name="employees-by-competence"),
-    path("employees-by-skill/<int:skill_id>/<int:employee_id>", EmployeesBySkillListView.as_view(), name="employees-by-skill"),
-
-    path("competence-for-employee/<int:employee_id>", CompetenceForEmployeeListView.as_view(), name="competence-for-employee"),
-    path("skill-for-employee/<int:employee_id>", SkillForEmployeeListView.as_view(), name="skill-for-employee"),
-
-    path("competence-table/", CompetenceTableListView.as_view(), name="competence-table-list"),
-    path("employees-by-competence-table/<int:competence_id>/<int:sector_id>", EmployeesByCompetenceTableListView.as_view(),
-         name="employee-by-competence-table"),
-
-    path("skill/", SkillListView.as_view(), name="skill-list"),
-    path("skill-table/", SkillTableListView.as_view(), name="skill-table-list"),
-    path("employees-by-skill-table/<int:skill_id>/<int:sector_id>", EmployeesBySkillTableListView.as_view(), name="employee-by-skill-table")
-
+    path("", RedirectView.as_view(url=reverse_lazy('employee-list'))),
+    path("admin/", admin.site.urls),
+    path("employees/", include("employees.urls")),
+    path("competences/", include("competences.urls")),
+    path("skills/", include("skills.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

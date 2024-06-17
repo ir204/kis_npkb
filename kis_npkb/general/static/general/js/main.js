@@ -1,7 +1,7 @@
 function showDeputiesByCompetence(competenceId, employeeId){
        // Показать заместителей, получив идентификатор компетенции.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-competence/" + competenceId + "/" + employeeId,
+            url: "http://127.0.0.1:8000/employees/employees-by-competence/" + competenceId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
             $("#employee-list-by-competence-or-skill")[0].focus();
@@ -11,7 +11,7 @@ function showDeputiesByCompetence(competenceId, employeeId){
 function showDeputiesBySkill(skillId, employeeId){
        // Показать заместителей, получив идентификатор компетенции.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-skill/" + skillId + "/" + employeeId,
+            url: "http://127.0.0.1:8000/employees/employees-by-skill/" + skillId + "/" + employeeId,
         }).done(function(data) {
             $("#employee-list-by-competence-or-skill").html( data  );
             $("#employee-list-by-competence-or-skill")[0].focus();
@@ -21,7 +21,7 @@ function showDeputiesBySkill(skillId, employeeId){
 function showCompetence(employeeId) {
         // Показать компетенции сотрудника, получив идентификатор сотрудника
         $.ajax({
-            url: "http://127.0.0.1:8000/competence-for-employee/" + employeeId,
+            url: "http://127.0.0.1:8000/employees/competence-for-employee/" + employeeId,
         }).done(function(data) {
             $("#skill-or-competence-list").html( data  );
         });
@@ -30,7 +30,7 @@ function showCompetence(employeeId) {
 function showSkill(employeeId) {
         // Показать навыки сотрудника, получив идентификатор сотрудника
         $.ajax({
-            url: "http://127.0.0.1:8000/skill-for-employee/" + employeeId,
+            url: "http://127.0.0.1:8000/employees/skill-for-employee/" + employeeId,
         }).done(function(data) {
             $("#skill-or-competence-list").html( data  );
         });
@@ -39,7 +39,7 @@ function showSkill(employeeId) {
 function showEmployeeDetail(employeeId){
         // Показать детальные записи о сотруднике, получив его идентификатор.
         $.ajax({
-            url: "http://127.0.0.1:8000/employee/" + employeeId,
+            url: "http://127.0.0.1:8000/employees/employee/" + employeeId,
         }).done(function(data) {
             $("#employee-info").html( data  );
             $(".competence-button").removeClass("visually-hidden");
@@ -52,7 +52,7 @@ function showEmployeeDetail(employeeId){
 function showEmployeesBySkill(skillId, sectorId){
        // Показать сотрудников, получив идентификатор навыка.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-skill-table/" + skillId + "/" + sectorId,
+            url: "http://127.0.0.1:8000/skills/employees-by-skill-table/" + skillId + "/" + sectorId,
         }).done(function(data) {
             $("#employee-list-by-skill").html( data  );
         });
@@ -61,7 +61,7 @@ function showEmployeesBySkill(skillId, sectorId){
 function showEmployeesByCompetence(competenceId, sectorId){
        // Показать сотрудников, получив идентификатор компетенции.
         $.ajax({
-            url: "http://127.0.0.1:8000/employees-by-competence-table/" + competenceId + "/" + sectorId,
+            url: "http://127.0.0.1:8000/competences/employees-by-competence-table/" + competenceId + "/" + sectorId,
         }).done(function(data) {
             $("#employee-list-by-competence").html( data  );
         });
@@ -75,7 +75,7 @@ function showEmployee(targetUrl, employeeId) {
     }
 
 function showEmployeeByRedirect(){
-    // Получение данных из куки после перехода на страницу.
+    // Получение данных из куки после перехода на страницу, с последующим их удалением.
         if ( document.cookie.split('; ').find(row => row.startsWith("employee=")) ) {
             let employeeId = document.cookie.split('; ').find(row => row.startsWith("employee="));
             employeeId = employeeId.split("employee=");

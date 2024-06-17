@@ -1,10 +1,6 @@
 from django import forms
 
-from departments.models import Department, Sector
-
-
-class CompetenceSortFilterForm(forms.Form):
-    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False, label="Отдел")
+from departments.models import Sector
 
 
 class CompetenceTableSortFilterForm(forms.Form):

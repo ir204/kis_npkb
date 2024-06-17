@@ -1,23 +1,10 @@
-from django.shortcuts import render
-from django.views.generic import DetailView, ListView
+from django.views.generic import ListView
 
 from departments.models import Department, Sector
 from employees.models import Employee
 from .forms import SkillSortFilterForm, SkillTableSortFilterForm
-from .models import EmpSkill, Skill
+from .models import EmpSkill
 
-
-# Create your views here.
-#
-# def group_sectors(a_queryset):
-#     tmp_list = []
-#     sector_id_list = a_queryset.distinct().order_by("sector_id").values_list("sector", flat=True)
-#     for sector_id in sector_id_list:
-#         internal_tmp_list = []
-#         for emp_skill in a_queryset:
-#             if emp_skill.sector.id ==sector_id:
-#                 internal_tmp_list.append(emp_skill)
-#         tmp_list.append(internal_tmp_list)
 
 def group_sectors(a_queryset):
     """
