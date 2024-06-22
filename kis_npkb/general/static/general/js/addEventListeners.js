@@ -16,6 +16,7 @@ function clickOnCompetenceButton(){
         function(){
             let employeeId = jQuery(".detail").attr("data-employeeid");
             showCompetence(employeeId);
+            $("#employee-list-by-competence-or-skill").empty();
         }
     );
 }

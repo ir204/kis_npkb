@@ -1,3 +1,4 @@
+
 from django.views.generic import ListView
 
 from departments.models import Department, Sector
@@ -44,6 +45,7 @@ class SkillListView(ListView):
         return context_data
 
 
+
 class SkillTableListView(ListView):
     model = EmpSkill
     template_name = "skills/skills_table_list.html"
@@ -73,7 +75,7 @@ class EmployeesBySkillTableListView(ListView):
 
         context = {"employees_by_skill": Employee.objects.filter(id__in=EmpSkill.objects.
                                                                  filter(skill__id=skill_id, sector__id=sector_id).
-                                                                 values_list("employee", flat=True))}
+                                                                 values_list("employee", flat=True)),
+                   "skill": Skill.objects.filter(id=skill_id).values_list("name", flat=True)}
         return context
 
-# отдельное вью под график
