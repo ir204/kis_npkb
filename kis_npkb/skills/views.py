@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from departments.models import Department, Sector
 from employees.models import Employee
 from .forms import SkillSortFilterForm, SkillTableSortFilterForm
-from .models import EmpSkill
+from .models import EmpSkill, Skill
 
 
 def group_sectors(a_queryset):
@@ -73,7 +73,7 @@ class EmployeesBySkillTableListView(ListView):
 
         context = {"employees_by_skill": Employee.objects.filter(id__in=EmpSkill.objects.
                                                                  filter(skill__id=skill_id, sector__id=sector_id).
-                                                                 values_list("employee", flat=True))}
+                                                                 values_list("employee", flat=True)),
+                   "skill": Skill.objects.filter(id=skill_id).values_list("name", flat=True)}
         return context
 
-# отдельное вью под график

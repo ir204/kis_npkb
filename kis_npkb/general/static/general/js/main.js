@@ -44,8 +44,11 @@ function showEmployeeDetail(employeeId){
             $("#employee-info").html( data  );
             $(".competence-button").removeClass("visually-hidden");
             $(".skill-button").removeClass("visually-hidden");
+            $("#employee-list-by-competence-or-skill").empty();
+            $("#skill-or-competence-list").empty();
         });
     }
+
 
     // Для таблиц
 

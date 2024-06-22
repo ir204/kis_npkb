@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from departments.models import Sector
 from employees.models import Employee
 from .forms import CompetenceTableSortFilterForm
-from .models import EmpCompetence
+from .models import EmpCompetence, Competence
 
 
 # Create your views here.
@@ -39,6 +39,7 @@ class EmployeesByCompetenceTableListView(ListView):
         context = {"employees_by_competence": Employee.objects.filter(id__in=EmpCompetence.objects.
                                                                       filter(competence__id=competence_id,
                                                                              sector__id=sector_id).
-                                                                      values_list("employee", flat=True))}
+                                                                      values_list("employee", flat=True)),
+                   "competence": Competence.objects.filter(id=competence_id).values_list("name", flat=True)}
         return context
 
