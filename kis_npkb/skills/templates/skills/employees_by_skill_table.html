@@ -1,29 +1,24 @@
-<div class="d-flex flex-column">
-    <span class="fs-5 fw-semibold text-left align-middle mx-5 w-100">Навыком {{ skill.0 }} обладают:</span>
-    <div class="d-flex flex-row flex-wrap justify-content-center mt-3">
-        {% for employee in employees_by_skill %}
+{% for employee in employees_by_skill %}
 
 
 <div class="card rounded-3 shadow-sm mx-5 mb-3 borderall itemcolor">
 
-            <div class="card-header border-0 d-flex justify-content-center">
-                <img class="img-fluid rounded-3" src="{{ employee.photo.url }}" alt="{{ employee.full_name }}">
-            </div>
+    <div class="card-header border-0 d-flex justify-content-center">
+        <img class="img-fluid rounded-3" src="{{ employee.photo.url }}" alt="{{ employee.full_name }}">
+    </div>
 
-            <div class="card-body text-center">
-                <ul class="list-group border-0">
-                    <li class="list-group-item fs-4 itemcolor borderbottom fw-semibold">{{ employee.full_name }}</li>
-                    <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.post }}</li>
-                    <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.sector.department }}</li>
-                    <li class="list-group-item fs-6 itemcolor borderbottom">Доб. номер: {{ employee.phone }}</li>
-                </ul>
-            </div>
+    <div class="card-body text-center">
+        <ul class="list-group border-0">
+            <li class="list-group-item fs-4 itemcolor borderbottom fw-semibold">{{ employee.full_name }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.post }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">{{ employee.sector.department }}</li>
+            <li class="list-group-item fs-6 itemcolor borderbottom">Доб. номер: {{ employee.phone }}</li>
+        </ul>
+    </div>
 
-            <div class="button-group d-flex flex-column mx-3 mb-3">
-                <button name="card" class="btn btn-primary mt-3" onclick="showEmployee({% url 'employee-list' %}, {{ employee.id }})">Карточка</button>
-            </div>
-        </div>
-
-        {% endfor %}
+    <div class="button-group d-flex flex-column mx-3 mb-3">
+        <button name="card" class="btn btn-primary mt-3" onclick="showEmployee({% url 'employee-list' %}, {{ employee.id }})">Карточка</button>
     </div>
 </div>
+
+{% endfor %}
