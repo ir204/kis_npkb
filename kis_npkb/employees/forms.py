@@ -9,16 +9,10 @@ def get_choices():
 
 
 class EmployeeSortFilterForm(forms.Form):
-    usertext = forms.CharField(required=False, widget=forms.TextInput, label="Поиск по фамилии")
-    # search_by = forms.ChoiceField(choices=CHOICES, label="Поиск по", required=False)
     search_by = forms.ChoiceField(choices=get_choices(), label="Поиск по", required=False)
+    usertext = forms.CharField(required=False, widget=forms.TextInput, label="Поиск")
     fired = forms.BooleanField(required=False, label="Уволенные")
-    # department = forms.ChoiceField(choices=Department.objects.all())
-
-    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False)
-    selected = forms.CharField(widget=forms.HiddenInput, required=False)
-    selected_emp = forms.CharField(widget=forms.HiddenInput, required=False)
-    is_skill = forms.BooleanField(widget=forms.HiddenInput, required=False)
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), required=False, empty_label="Все отделы", label="Отдел")
 
 
 

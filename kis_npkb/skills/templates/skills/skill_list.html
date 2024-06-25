@@ -1,77 +1,54 @@
 {% extends 'general/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load skills %}
 
 
 {% block 'content' %}
-<div class="d-flex flex-column align-items-center flex-shrink-0 bg-body-tertiary" style="min-width:380px;">
+<div class="d-flex flex-column align-items-center flex-shrink-0" style="min-width:380px;">
     <div class="mb-5">
-        <form method="get">
-            <table>
-                {{ sort_filter_form|crispy }}
-            </table>
-            <button>Показать</button>
+        <form class="itemcolor borderall rounded-3 p-3">
+            {{ sort_filter_form|crispy }}
+            <button class="btn btn-info">Показать</button>
         </form>
     </div>
 </div>
-<div class="d-flex flex-column align-items-center flex-shrink-0 bg-body-tertiary" style="min-width: 380px;">
+<div class="d-flex flex-column align-items-center flex-shrink-0 w-100">
     {% if object_list %}
-        {% for object in object_list %}
-        <h3>{{ object.sector.name }} СЕКТОР</h3>
-        <h4>МАТРИЦА НАВЫКОВ</h4>
-        <div class="d-flex flex-wrap">
+        {% for a_group in grouped_empskill_list %}
+            <h3>{{ a_group.0.sector.name }} СЕКТОР</h3>
+            <h4>МАТРИЦА НАВЫКОВ</h4>
+            <div class="d-flex flex-wrap mx-5">
 
-            <figure class="figure" style="background-color: green; height: 20px; width: 20px;"></figure>
-            <p class="ms-2 me-4">Прошел полную подготовку</p>
+                <figure class="figure" style="background-color: #17a917; height: 20px; width: 20px;"></figure>
+                <p class="ms-2 me-4">Прошел полную подготовку</p>
 
-            <figure class="figure" style="background-color: lime; height: 20px; width: 20px;"></figure>
-            <p class="ms-2 me-4">Самостоятельно выполняет работу</p>
+                <figure class="figure" style="background-color: lime; height: 20px; width: 20px;"></figure>
+                <p class="ms-2 me-4">Самостоятельно выполняет работу</p>
 
-            <figure class="figure" style="background-color: yellow; height: 20px; width: 20px;"></figure>
-            <p class="ms-2 me-4">Работает под наблюдением наставника</p>
+                <figure class="figure" style="background-color: yellow; height: 20px; width: 20px;"></figure>
+                <p class="ms-2 me-4">Работает под наблюдением наставника</p>
 
-            <figure class="figure" style="background-color: orange; height: 20px; width: 20px;"></figure>
-            <p class="ms-2 me-4">Владеет теорией</p>
+                <figure class="figure" style="background-color: orange; height: 20px; width: 20px;"></figure>
+                <p class="ms-2 me-4">Владеет теорией</p>
 
-            <figure class="figure" style="background-color: red; height: 20px; width: 20px;"></figure>
-            <p class="ms-2 me-4">Не имеет навыка</p>
+                <figure class="figure" style="background-color: red; height: 20px; width: 20px;"></figure>
+                <p class="ms-2 me-4">Не имеет навыка</p>
 
-        </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {% for object in object_list %}
-                                <th scope="col">{{ object.skill.name }}</th>
-                            {% endfor %}
-                        </tr>
-                    </thead>
+            </div>
+            <div class="table-responsive w-75 borderbottom my-3">
+                <table class="table table-bordered table-sm text-center align-middle rounded-3">
+                    {% handle_group a_group.0 %}
                     <tbody>
-                    {% for object in object_list %}
-                        <tr>
-                            <td>{{ object.employee.full_name }}, {{ object.employee.post }}</td>
-                            {% for object in object_list %}
-                                <td style="background-color: {% if object.skill_level == 0 %}
-                                {{ 'red' }}
-                            {% elif object.skill_level == 1 %}
-                                {{ 'orange' }}
-                            {% elif object.skill_level == 2 %}
-                                {{ 'yellow' }}
-                            {% elif object.skill_level == 3 %}
-                                {{ 'lime' }}
-                            {% elif object.skill_level == 4 %}
-                                {{ 'green' }}
-                            {% endif %}" >{{ object.skill_level }}</td>
-                            {% endfor %}
-                        </tr>
+                    {% for employee in a_group %}
+                        <tr><td class="table-primary">{{ employee.full_name }}, {{ employee.post }}</td>{% get_skills employee %}<tr>
                     {% endfor %}
                     </tbody>
                 </table>
-                <hr class="hr hr-blurry mt-4 mb-5"></hr>
             </div>
         {% endfor %}
     {% endif %}
 </div>
 
 {% endblock %}
+

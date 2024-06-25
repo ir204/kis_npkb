@@ -1,14 +1,7 @@
 from django import forms
 
-from departments.models import Department
+from departments.models import Sector
 
 
-class CompetenceSortFilterForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['department'].required = False
-
-        class Meta:
-            model = Department
-            fields = ["department", ]
-            labels = {"department": "Отдел"}
+class CompetenceTableSortFilterForm(forms.Form):
+    sector = forms.ModelChoiceField(queryset=Sector.objects.all(), required=False, label="Сектор")

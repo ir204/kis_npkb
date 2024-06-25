@@ -1,24 +1,25 @@
 {% load static %}
 
 {% block 'content' %}
-<div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3">
-              <img class="w-100 img-fluid" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
-            </div>
-          <div class="card-body">
-              <h1 class="card-title pricing-card-title">{{ object.full_name }}</h1>
-              <ul class="list-unstyled mt-3 mb-4">
-                  <li>{{ object.full_name }}</li>
-                  <li>{{ object.post }}</li>
-                  <li>{{ object.sector.department }}</li>
-                  <li>{{ object.phone }}</li>
-              </ul>
-          </div>
-            <a href="#" class="nav-link">Компетенции сектора</a>
-            <a href="#" class="nav-link">Навыки сектора</a>
+<div class="detail" data-employeeid="{{ object.id }}">
+    <div class="card rounded-3 shadow-sm borderall itemcolor">
+        <div class="card-header border-0 d-flex justify-content-center">
+            <img class="img-fluid rounded-3" src="{{ object.photo.url }}" alt="{{ object.full_name }}">
         </div>
-      </div>
+        <div class="card-body text-center">
+            <ul class="list-group border-0">
+                <li class="list-group-item fs-4 itemcolor borderbottom fw-semibold">{{ object.full_name }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">{{ object.post }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">{{ object.sector.department }}</li>
+                <li class="list-group-item fs-6 itemcolor borderbottom">Доб. номер: {{ object.phone }}</li>
+            </ul>
+        </div>
+        <div class="button-group d-flex flex-column mx-3 mb-3">
+            <a href="{% url 'competence-table-list' %}?sector={{ object.sector.id }}" class="btn btn-primary mt-3">Компетенции сектора</a>
+            <a href="{% url 'skill-table-list' %}?sector={{ object.sector.id }}" class="btn btn-primary mt-1">Навыки сектора</a>
+        </div>
+    </div>
+</div>
 
 
 {% endblock %}

@@ -18,3 +18,6 @@ class EmpSkill(models.Model):
     skill_level = models.PositiveIntegerField(verbose_name="Уровень владения")
     sector = models.ForeignKey("departments.Sector", on_delete=models.CASCADE, verbose_name="Сектор")
 
+    def __str__(self):
+        return "{}: {}".format(self.employee, self.skill)
+

@@ -14,24 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path, reverse_lazy
+from django.views.generic import RedirectView
 
-from competences.views import CompetenceListView
-from employees.views import EmployeeListView, EmployeeDetailView    # EmployeeHome
-from skills.views import SkillListView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("employee/", EmployeeListView.as_view(), name="employee-list"),
-    path("employee/<int:pk>", EmployeeDetailView.as_view(), name="employee-detail"),
-
-    path("competence/", CompetenceListView.as_view(), name="competence-list"),
-    path("competence/chart", EmployeeDetailView.as_view(), name="competence-chart"),
-
-    path("skill/", SkillListView.as_view(), name="skill-list"),
-    path("skill/chart", EmployeeDetailView.as_view(), name="skill-chart"),
-
+    path("", RedirectView.as_view(url=reverse_lazy('employee-list'))),
+    path("admin/", admin.site.urls),
+    path("employees/", include("employees.urls")),
+    path("competences/", include("competences.urls")),
+    path("skills/", include("skills.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
